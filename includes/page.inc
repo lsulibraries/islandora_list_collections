@@ -1,6 +1,5 @@
 <?php
 
-
 function all_collections(){
   $tuque = islandora_get_tuque_connection();
   $query = <<<EOL
@@ -24,7 +23,6 @@ function links_from_query($query){
   return $links;
 }
 
-
 function create_page($links){
   $values = array(
     'type' => 'PAGE',
@@ -36,4 +34,10 @@ function create_page($links){
   $ewrapper->title->set('Collections');
   $ewrapper->body->set(array('value' => $links));
   $ewrapper->save(); 
+}
+
+function collection_list(){
+  $query_return = all_collections();
+  $links = links_from_query($query_return);
+  create_page($links);
 }

@@ -1,6 +1,13 @@
 <?php
 require_once dirname(__FILE__) . '/includes/page.inc';
 
-$collections = all_collections();
-$links = links_from_query($collections);
-create_page($links);
+
+function islandora_list_collections_menu(){
+  $items = array();
+  $items['collections_list'] = array(
+    'title' => 'Collection List',
+    'page callback' => 'collection_list',
+    'file' => 'includes/page.inc',
+  );
+}
+
