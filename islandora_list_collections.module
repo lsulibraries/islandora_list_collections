@@ -2,12 +2,19 @@
 require_once dirname(__FILE__) . '/includes/page.inc';
 
 
+function islandora_list_collection_page(){
+  echo 'hello world';
+}
+
+
 function islandora_list_collections_menu(){
   $items = array();
-  $items['collections_list'] = array(
+  $items['admin/collections_list'] = array(
     'title' => 'Collection List',
-    'page callback' => 'collection_list',
-    'file' => 'includes/page.inc',
+    'access callback' => TRUE,
+    'page callback' => 'create_page',
+    'type' => 'NORMAL_MENU_ITEM',
   );
+  return $items;
 }
 

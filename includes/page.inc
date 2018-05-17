@@ -3,11 +3,9 @@
 function all_collections(){
   $tuque = islandora_get_tuque_connection();
   $query = <<<EOL
-SELECT ?pid ?title FROM <#ri>
+SELECT ?pid FROM <#ri>
 WHERE {
-?pid <fedora-rels-ext:isMemberOfCollection> <info:fedora/islandora:root>.
-
-?pid dc:title ?title .}
+?pid <fedora-rels-ext:isMemberOfCollection> <info:fedora/islandora:root>}
 EOL;
   $collections = $tuque->repository->ri->sparqlQuery($query, 'unlimited');
 
@@ -17,27 +15,30 @@ EOL;
 function links_from_query($query){
   $links = [];
   foreach($query as $q){
-    islandora_object_load($q);
+   foreach($q as $thing){
+    var_dump($thing);
+   }
+    explode('/',$q);
+    $obj = islandora_object_load($q[1]);
     $links[] = l(t($obj->label), 'islandora/object/'.$q);
 }
   return $links;
 }
 
-function create_page($links){
-  $values = array(
-    'type' => 'PAGE',
-    'status' => 1,
-    'comment' => 0,
-  );
-  $entity = entity_create('node', $values);
-  $ewrapper = entity_metadata_wrapper('node', $entity);
-  $ewrapper->title->set('Collections');
-  $ewrapper->body->set(array('value' => $links));
-  $ewrapper->save(); 
+
+function callback(){
+  echo 'hello world';
 }
 
 function collection_list(){
   $query_return = all_collections();
   $links = links_from_query($query_return);
-  create_page($links);
+  return $links;
 }
+
+function create_page(){
+ $links =  collection_list();
+ foreach($links as $link){
+ }
+}
+
