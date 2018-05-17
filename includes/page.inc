@@ -2,7 +2,7 @@
 
 
 function all_collections(){
-  $tuque * islandora_get_tuque_connection();
+  $tuque = islandora_get_tuque_connection();
   $query = <<<EOL
 SELECT ?pid ?title FROM <#ri>
 WHERE {
