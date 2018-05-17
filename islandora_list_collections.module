@@ -1,0 +1,6 @@
+<?php
+require_once dirname(__FILE__) . '/includes/page.inc';
+
+$collections = all_collections();
+$links = links_from_query($collections);
+create_page($links);

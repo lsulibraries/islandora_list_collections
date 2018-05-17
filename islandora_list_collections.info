@@ -1,0 +1,5 @@
+name = islandora list collections
+description = Creates a page/block of all collections within a repository.
+core = 7.x
+files[] = includes/query.inc
+dependencies[] = islandora
