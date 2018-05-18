@@ -23,7 +23,6 @@ function links_from_query($query_results){
   return $links;
 }
 
-
 function collection_list(){
   $links = &drupal_static(__FUNCTION__);
   if(!isset($links)){
@@ -34,16 +33,7 @@ function collection_list(){
       $query_return = all_collections();      
       $links = links_from_query($query_return);
     }
-
   }
   return $links;
-}
-
-function create_page(){
- $links =  collection_list();
- foreach($links as $link){
-   echo $link."<br>";
-  }
-//return $links;
 }
 
