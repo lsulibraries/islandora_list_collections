@@ -18,3 +18,20 @@ function islandora_list_collections_menu(){
   return $items;
 }
 
+
+function islandora_list_collections_theme($existing, $type, $theme, $path){
+  return array(
+    'list_collections' => array(
+      'variables' => array(),//collection_list(),
+      'template' => 'theme/islandora-list-collections',
+    ),
+  );
+}
+
+
+function islandora_list_collection_islandora_object_ingested(AbstractObject $object) {
+  if(in_array('islandora:collectionCModel', $object->models)) {
+      //re-run the collection list
+      collection_list();
+  }
+}

@@ -15,13 +15,11 @@ EOL;
 function links_from_query($query){
   $links = [];
   foreach($query as $q){
-   foreach($q as $thing){
-    var_dump($thing);
-   }
-    explode('/',$q);
-    $obj = islandora_object_load($q[1]);
-    $links[] = l(t($obj->label), 'islandora/object/'.$q);
-}
+    foreach($q as $thing){
+      $obj = islandora_object_load($thing['value']);
+      $links[] = l(t($obj->label), 'islandora/object/'.$thing['value']);
+    }
+  }
   return $links;
 }
 
@@ -31,14 +29,19 @@ function callback(){
 }
 
 function collection_list(){
-  $query_return = all_collections();
-  $links = links_from_query($query_return);
+  $links = &drupal_static(__FUNCTION__);
+  if(!isset($links)){
+    $query_return = all_collections();
+    $links = links_from_query($query_return);
+  }
   return $links;
+  
 }
 
 function create_page(){
  $links =  collection_list();
  foreach($links as $link){
+ echo $link."<br>";
  }
 }
 
