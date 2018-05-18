@@ -6,10 +6,19 @@ function islandora_list_collections_menu(){
   $items['admin/collections_list'] = array(
     'title' => 'Collection List',
     'access callback' => TRUE,
-    'page callback' => 'create_page',
+    'page callback' => 'create_page variables_to_page',
     'type' => 'NORMAL_MENU_ITEM',
   );
   return $items;
+}
+
+function variables_to_page(){
+  $content = array();
+  $content[] = array(
+    '#type' => 'markup',
+    '#markup' => theme('list_collections', array('list' => collection_list())),
+  );
+  return $content;
 }
 
 function islandora_list_collections_theme($existing, $type, $theme, $path){
@@ -21,7 +30,6 @@ function islandora_list_collections_theme($existing, $type, $theme, $path){
     ),
   );
 }
-
 
 function islandora_list_collection_islandora_object_ingested(AbstractObject $object) {
   if(in_array('islandora:collectionCModel', $object->models)) {

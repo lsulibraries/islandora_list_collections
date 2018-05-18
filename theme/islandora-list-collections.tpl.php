@@ -1,4 +1,6 @@
 <?php
 
 ?>
-<div><?php echo $list; ?></div>
+<?php foreach $list as $link: ?>
+  <div><?php echo $link; ?></div>
+<?php endforeach; ?>
