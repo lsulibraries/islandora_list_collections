@@ -31,11 +31,16 @@ function callback(){
 function collection_list(){
   $links = &drupal_static(__FUNCTION__);
   if(!isset($links)){
-    $query_return = all_collections();
-    $links = links_from_query($query_return);
+    if($cache = cache_get('collection_list_data')){
+      $links = $cache->data;
+    }
+    else{
+      $query_return = all_collections();      
+      $links = links_from_query($query_return);
+    }
+
   }
   return $links;
-  
 }
 
 function create_page(){

@@ -1,12 +1,6 @@
 <?php
 require_once dirname(__FILE__) . '/includes/page.inc';
 
-
-function islandora_list_collection_page(){
-  echo 'hello world';
-}
-
-
 function islandora_list_collections_menu(){
   $items = array();
   $items['admin/collections_list'] = array(
@@ -18,11 +12,11 @@ function islandora_list_collections_menu(){
   return $items;
 }
 
-
 function islandora_list_collections_theme($existing, $type, $theme, $path){
+  //a default structure for our $variables to be passed to template
   return array(
     'list_collections' => array(
-      'variables' => array(),//collection_list(),
+      'variables' => array('list' => array()),
       'template' => 'theme/islandora-list-collections',
     ),
   );
