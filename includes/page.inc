@@ -15,9 +15,15 @@ EOL;
 }
 
 function links_from_query($query_results){
-  $links = [];
+  $sortable = [];
+  dpm($query_results);
   foreach($query_results as $query){
-    $links[] = l(t($query['title']['value']), 'islandora/object/'.$query['pid']['value']);
+    $sortable[$query['pid']['value']] = $query['title']['value'];
+}
+  natsort($sortable);
+  $links = [];
+  foreach($sortable as $k => $v){
+    $links[] = l(t($v), 'islandora/object/'.$k);
   }
   return $links;
 }
