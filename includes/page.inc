@@ -3,9 +3,11 @@
 function all_collections(){
   $tuque = islandora_get_tuque_connection();
   $query = <<<EOL
-SELECT ?pid FROM <#ri>
+SELECT ?pid ?title FROM <#ri>
 WHERE {
-?pid <fedora-rels-ext:isMemberOfCollection> <info:fedora/islandora:root>}
+?pid <fedora-rels-ext:isMemberOfCollection> <info:fedora/islandora:root>.
+?pid <info:fedora/fedora-system:def/model#label> ?title}
+ORDER BY ?title
 EOL;
   $collections = $tuque->repository->ri->sparqlQuery($query, 'unlimited');
 
@@ -15,10 +17,7 @@ EOL;
 function links_from_query($query_results){
   $links = [];
   foreach($query_results as $query){
-    foreach($query as $result){
-      $obj = islandora_object_load($result['value']);
-      $links[] = l(t($obj->label), 'islandora/object/'.$result['value']);
-    }
+    $links[] = l(t($query['title']['value']), 'islandora/object/'.$query['pid']['value']);
   }
   return $links;
 }
