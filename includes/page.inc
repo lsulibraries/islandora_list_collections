@@ -19,7 +19,7 @@ function links_from_query($query_results){
   foreach($query_results as $query){
     $sortable[$query['pid']['value']] = $query['title']['value'];
 }
-  natsort($sortable);
+  natcasesort($sortable);
   $links = [];
   foreach($sortable as $k => $v){
     $links[] = l(t($v), 'islandora/object/'.$k);
