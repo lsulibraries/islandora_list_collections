@@ -21,8 +21,13 @@ function links_from_query($query_results){
 }
   natcasesort($sortable);
   $links = [];
+  $options = array(
+    'attributes' => array( 
+      'class' => 'link_to_coll',
+    ),
+  );
   foreach($sortable as $k => $v){
-    $links[] = l(t($v), 'islandora/object/'.$k);
+    $links[] = l(t($v), 'islandora/object/'.$k,$options);
   }
   return $links;
 }
