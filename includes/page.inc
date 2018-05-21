@@ -16,7 +16,6 @@ EOL;
 
 function links_from_query($query_results){
   $sortable = [];
-  dpm($query_results);
   foreach($query_results as $query){
     $sortable[$query['pid']['value']] = $query['title']['value'];
 }
